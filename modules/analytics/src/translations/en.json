@@ -7,6 +7,7 @@
     "web": "Web"
   },
   "interactions": "Interactions",
+  "intents":"Intents",
   "conversations": "Conversations",
   "dashboard": "Dashboard",
   "dateFormat": "MMMM Do YYYY",
@@ -28,6 +29,7 @@
   "mostFailedQuestions": "Most Failed Questions",
   "mostFailedWorkflows": "Most Failed Workflows",
   "mostUsedWorkflows": "Most Used Workflows",
+  "mostUsedIntents" : "Most Used Intents",
   "newUsers": "{nb} New Users",
   "noDataAvailable": "No data available",
   "qnaSent": "QNA Sent",

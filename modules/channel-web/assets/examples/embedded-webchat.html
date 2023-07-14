@@ -175,6 +175,7 @@
 
       window.addEventListener('message', function(message) {
         // chat2
+        console.log('asd')
         if (message.data.chatId === secondChatId) {
           if (message.data.name === 'webchatLoaded') {
             toggleChat2()
@@ -185,12 +186,29 @@
             userId = message.data.userId
             document.getElementById('user-id-bp').innerText = userId
           }
-
-          if (message.data.name === 'webchatOpened') {
+          if (message.data.name === 'webchatReady') {
             webchatOpen = true
+            window.botpressWebChat.sendEvent({
+              type: 'proactive-trigger',
+              channel: 'web',
+              payload: {
+                text: 'fake message'
+              }
+            })
             document.getElementById('toggle-bp').style.backgroundColor = 'red'
           }
 
+          if (message.data.name === 'webchatOpened') {
+            webchatOpen = true
+            // window.botpressWebChat.sendEvent({
+            //   type: 'proactive-trigger',
+            //   channel: 'web',
+            //   payload: {
+            //     text: 'fake message'
+            //   }
+            // })
+            document.getElementById('toggle-bp').style.backgroundColor = 'red'
+          }
           if (message.data.name === 'webchatClosed') {
             webchatOpen = false
             document.getElementById('toggle-bp').style.backgroundColor = 'green'

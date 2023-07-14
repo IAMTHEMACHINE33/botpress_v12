@@ -2431,6 +2431,17 @@
     cookie "^0.4.2"
     joi "^17.6.0"
 
+"@botpress/ui-shared@./botpress-ui-shared-v0.0.1.tgz":
+  version "0.0.1"
+  resolved "./botpress-ui-shared-v0.0.1.tgz#e3639fe2f4ada3b61aadbf7290ae25b691cd1e77"
+  dependencies:
+    classnames "^2.2.6"
+    js-cookie "^2.2.1"
+    lodash "^4.17.19"
+    ms "^2.1.1"
+    react-command-palette "^0.12.0-0"
+    react-router "4.3.1"
+
 "@cnakazawa/watch@^1.0.3":
   version "1.0.3"
   resolved "https://registry.yarnpkg.com/@cnakazawa/watch/-/watch-1.0.3.tgz#099139eaec7ebf07a27c1786a3ff64f39464d2ef"
