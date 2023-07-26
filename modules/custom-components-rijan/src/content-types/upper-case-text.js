@@ -3,7 +3,7 @@ function render(data)
   return [
     {
       type: 'custom',
-      module: 'custom-component-rijan',
+      module: 'custom-components-rijan',
       component: 'UpperCasedText',
       text: data.text
     }

@@ -4,31 +4,49 @@ import { input } from './style.scss'
 export const DynamicForm = props => {
   const [fields, setFields] = useState([])
   const [inputValues, setInputValues] = useState({})
-
-  const handleSubmit = async e => {
+  const form = new FormData()
+  const handleSubmit = async (e, form) => {
     e.preventDefault()
-    const form = new FormData()
-    form.append()
+
     if (fields.length > 0) {
       // const confirm = window.confirm(`This would be sent to the configured endpoint: ${props.endpoint}`)
-      console.log('props.endpoint', props)
-      console.log('input', inputValues)
-      props.onSendData({ type: props.endpoint, value: inputValues })
+      // console.log('props.endpoint', props.endpoint)
+      // console.log('input from out', inputValues)
+      // console.log('form file out', form.get('file'))
+      // console.log('asd', Object.keys(inputValues)[i])
 
-      // const response = await props.bp.axios.post(props.endpoint, {
-      //   inputValues: inputValues
-      // })
+      for (let i = 0, j = Object.keys(inputValues).length; i < j; i++) {
+        form.append(Object.keys(inputValues)[i], Object.values(inputValues)[i])
+      }
+      // console.log('form ', form.get('file'))
+      console.log('form first', form.get('first'))
+      console.log('form second', form.get('second'))
+      props.onSendData({ type: props.endpoint, value: inputValues })
+      // const response = await props.bp.axios.post(props.endpoint, inputValues)
       // console.log('response', response)
     }
   }
 
   const handleInputChange = (e, field) => {
+    // setInputValues(prevStste =>
+    //   prevStste.append(field?.title, event.target.type == 'file' ? e.target.files[0] : e?.target?.value)
+    // )
     setInputValues({
       ...inputValues,
       [field?.title]: e?.target?.value
     })
-    form.append(field?.title, e?.target?.value)
-    console.log('------Input values-----', inputValues)
+    // console.log('------Input values-----', inputValues)
+  }
+  const handleFileInputChange = (e, field, form) => {
+    console.log('event.target.type', event.target.type)
+    console.log(e.target.files)
+
+    form.append(field?.title, e.target.files[0])
+    // if (event.target.type == 'file') {
+    //   form.append(field?.title, e.target.files[0])
+    // } else {
+    //   form.append(field?.title, e?.target?.value)
+    // }
   }
 
   const renderInputField = field => {
@@ -112,7 +130,7 @@ export const DynamicForm = props => {
               type={field.type}
               className="input_field_type"
               value={inputValues[field.title] || ''}
-              onChange={e => handleInputChange(e, field)}
+              onChange={e => handleFileInputChange(e, field, form)}
             />
           </>
         )
@@ -181,7 +199,7 @@ export const DynamicForm = props => {
 
         <br />
 
-        <button onClick={handleSubmit} className="form_button">
+        <button onClick={e => handleSubmit(e, form)} className="form_button">
           Submit
         </button>
       </form>

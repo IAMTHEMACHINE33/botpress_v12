@@ -1,0 +1,24 @@
+{
+  "apply": [
+    {
+      "name": "Rijan Maharjan",
+      "email": "rijan@gmail.com",
+      "position": "Node js"
+    },
+    {
+      "name": "Basanta Rai",
+      "email": "rai@gmail.com",
+      "position": "React js"
+    },
+    {
+      "name": "Amrit Khatiwada",
+      "email": "amrit@email.com",
+      "position": "Node js"
+    },
+    {
+      "name": "Ruplu",
+      "email": "ruplu@email.com",
+      "position": "Node js"
+    }
+  ]
+}

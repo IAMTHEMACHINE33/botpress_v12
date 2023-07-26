@@ -3,7 +3,7 @@ if (event.preview === 'options')
 {
   const payload = {
     type: 'custom',
-    module: 'custom-component-rijan',
+    module: 'custom-components-rijan',
     component: 'DropdownMenu',
     options: ['my option 1', 'option 2', 'another option']
   }

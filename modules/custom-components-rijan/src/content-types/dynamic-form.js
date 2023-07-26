@@ -5,7 +5,7 @@ function render(data)
   return [
     {
       type: 'custom',
-      module: 'custom-component-rijan',
+      module: 'custom-components-rijan',
       component: 'DynamicForm',
       endpoint: data.endpoint,
       response: { data }

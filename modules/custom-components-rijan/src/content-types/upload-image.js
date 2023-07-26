@@ -6,11 +6,11 @@ function render(data)
       type: 'custom',
 
       // The name of your module
-      module: 'custom-component-rijan',
+      module: 'custom-components-rijan',
 
       // The name of the component to load. In this example, the name of the component is "LoginForm",
       // Components created for the web chat must be in the `lite` views
-      component: 'LoginForm',
+      component: 'UploadImage',
 
       // Add anything else that you would want your module to process
       // ... data from the content manager forms:
@@ -34,11 +34,11 @@ function renderElement(data, channel)
 }
 
 module.exports = {
-  id: 'custom_loginform',
+  id: 'custom_upload_image',
   group: 'Custom Component',
-  title: 'Login Form',
+  title: 'Upload Image',
   jsonSchema: {
-    description: 'Custom login form with configurable endpoint',
+    description: 'Upload Image Using File Input',
     type: 'object',
     required: ['endpoint'],
     properties: {

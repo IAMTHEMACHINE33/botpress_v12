@@ -8,7 +8,7 @@ if (intent === 'login')
   //We prepare the payload to send to the channel web
   const payload = {
     type: 'custom', 
-    module: 'custom-component-rijan',
+    module: 'custom-components-rijan',
     component: 'default',
     endpoint: 'http://google.com',
 

@@ -218,7 +218,7 @@ export class HandleExcel extends React.Component {
               outlined={true}
               minimal={true}
               fill={true}
-              href="/assets/modules/custom-component-rijan/qna.xlsx"
+              href="/assets/modules/custom-components-rijan/qna.xlsx"
               download="sample.xlsx"
             >
               <Icon icon="archive" />

@@ -23,7 +23,7 @@ Basic components includes a login form, and another one to make the bot yell.
 "modules": [
   ...
   {
-    "location": "MODULES_ROOT/custom-component-rijan",
+    "location": "MODULES_ROOT/custom-components-rijan",
     "enabled": true
   }
 ]

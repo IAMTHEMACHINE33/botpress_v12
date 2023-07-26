@@ -6,11 +6,11 @@ function render(data)
       type: 'custom',
 
       // The name of your module
-      module: 'custom-component-rijan',
+      module: 'custom-components-rijan',
 
       // The name of the component to load. In this example, the name of the component is "LoginForm",
       // Components created for the web chat must be in the `lite` views
-      component: 'HandleExcel',
+      component: 'LoginForm',
 
       // Add anything else that you would want your module to process
       // ... data from the content manager forms:
@@ -34,11 +34,11 @@ function renderElement(data, channel)
 }
 
 module.exports = {
-  id: 'custom_handle_excel',
+  id: 'custom_loginform',
   group: 'Custom Component',
-  title: 'Handle Excel',
+  title: 'Login Form',
   jsonSchema: {
-    description: 'Excel can be imported and converted into downloadable json also a sample excel can be downloaded',
+    description: 'Custom login form with configurable endpoint',
     type: 'object',
     required: ['endpoint'],
     properties: {

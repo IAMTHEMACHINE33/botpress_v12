@@ -2,7 +2,7 @@ if (event.preview === 'disappearKeyboard')
 {
   const payload = {
     type: 'custom',
-    module: 'custom-component-rijan',
+    module: 'custom-components-rijan',
     component: 'DisappearingText',
     myrandomproperty:
       'This text will disappear when the timer expires. You can add any component, buttons, etc as a keyboard',
@@ -18,7 +18,7 @@ if (event.preview === 'feedbackKeyboard')
 {
   const payload = {
     type: 'custom',
-    module: 'custom-component-rijan',
+    module: 'custom-components-rijan',
     component: 'FeedbackButtons',
     wrapped: {
       // Wrap an existing event...
@@ -53,12 +53,12 @@ if (event.preview === 'wrapperExample')
 {
   const payload = {
     type: 'custom',
-    module: 'custom-component-rijan',
+    module: 'custom-components-rijan',
     component: 'ColorText',
     color: '#ff0000',
     wrapped: {
       type: 'custom',
-      module: 'custom-component-rijan',
+      module: 'custom-components-rijan',
       component: 'UpperCase',
       wrapped: {
         type: 'text',
