@@ -1,28 +1,20 @@
 {
   "openings": [
     {
-      "title": "Node js",
-      "description": "Experienced backend developer with extensive work on NodeJS along with good English spoken language. Develop new user-facing features.Build structured, reusable code and libraries for future use. Optimize applications for maximum speed and scalability. Maintain, contribute, and adhere to our programming best practices and guidelines.Advanced understanding of emerging web technologies"
+      "position": "Node js",
+      "description": "Bachelor's degree in computer science, information science, or similar.\n At least two years' experience as a Node.js developer.\nExtensive knowledge of JavaScript, web stacks, libraries, and frameworks."
     },
     {
-      "title": "React js",
-      "description": "Experienced backend developer with extensive work on NodeJS along with good English spoken language. Develop new user-facing features.Build structured, reusable code and libraries for future use. Optimize applications for maximum speed and scalability. Maintain, contribute, and adhere to our programming best practices and guidelines.Advanced understanding of emerging web technologies"
+      "position": "React js",
+      "description": "Bachelors degree in computer science, information technology, or a similar field.\nPrevious experience working as a react.js developer.\nIn-depth knowledge of JavaScript, CSS, HTML, and front-end languages."
     },
     {
-      "title": "Dot net",
-      "description": "looking for a dotnet dev"
+      "position": "QA",
+      "description": "To test code"
     },
     {
-      "title": "QA",
-      "description": "To test Codes."
-    },
-    {
-      "title": "DevOps",
-      "description": "deploy"
-    },
-    {
-      "title": "QA",
-      "description": "To test"
+      "position": "Dotnet",
+      "description": "asd"
     }
   ]
 }

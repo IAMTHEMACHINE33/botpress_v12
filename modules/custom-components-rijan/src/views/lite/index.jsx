@@ -10,6 +10,10 @@ export { HandleExcel } from './components/HandleExcel'
 
 export { UploadImage } from './components/UploadImage'
 
+export { DownloadTable } from './components/DownloadTable'
+
+export { CarouselForm } from './components/CarouselForm'
+
 export { DynamicForm } from './components/DynamicForm'
 // This is an example on how to replace the webchat composer (the typing zone)
 export { Composer } from './components/Composer'

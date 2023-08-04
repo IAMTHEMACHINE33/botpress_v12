@@ -5,6 +5,7 @@ export const DynamicForm = props => {
   const [fields, setFields] = useState([])
   const [inputValues, setInputValues] = useState({})
   const form = new FormData()
+  const visible = props.isLastGroup && props.isLastOfGroup
   const handleSubmit = async (e, form) => {
     e.preventDefault()
 
@@ -21,9 +22,9 @@ export const DynamicForm = props => {
       // console.log('form ', form.get('file'))
       console.log('form first', form.get('first'))
       console.log('form second', form.get('second'))
-      props.onSendData({ type: props.endpoint, value: inputValues })
-      // const response = await props.bp.axios.post(props.endpoint, inputValues)
-      // console.log('response', response)
+      const response = await props.bp.axios.post(props.endpoint, inputValues)
+      console.log('response', response)
+      props.onSendData({ type: props.endpoint, value: response })
     }
   }
 
@@ -178,31 +179,41 @@ export const DynamicForm = props => {
       })
     }
   }, [fields])
+  let whatToShow
+  console.log('visible', visible)
+  if (visible) {
+    whatToShow = (
+      <div>
+        <form className="form_container">
+          <h3 className="form_title">{props.response?.data?.title}</h3>
+          {props.response?.data?.input_fields?.map((field, index) => (
+            <div className="input_group" key={index}>
+              <label htmlFor={field.title} className="input_field_label">
+                {field.title}
+              </label>
 
-  return (
-    <div>
-      <form className="form_container">
-        <h3 className="form_title">{props.response?.data?.title}</h3>
-        {props.response?.data?.input_fields?.map((field, index) => (
-          <div className="input_group" key={index}>
-            <label htmlFor={field.title} className="input_field_label">
-              {field.title}
-            </label>
+              <br />
 
-            <br />
+              {renderInputField(field)}
 
-            {renderInputField(field)}
+              <br />
+            </div>
+          ))}
 
-            <br />
-          </div>
-        ))}
+          <br />
 
-        <br />
-
-        <button onClick={e => handleSubmit(e, form)} className="form_button">
-          Submit
-        </button>
-      </form>
-    </div>
-  )
+          <button onClick={e => handleSubmit(e, form)} className="form_button">
+            Submit
+          </button>
+        </form>
+      </div>
+    )
+  } else {
+    whatToShow = (
+      <div>
+        <h1>Done!!</h1>
+      </div>
+    )
+  }
+  return <div>{whatToShow}</div>
 }

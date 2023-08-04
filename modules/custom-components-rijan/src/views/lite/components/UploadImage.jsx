@@ -64,22 +64,23 @@ export class UploadImage extends React.Component {
         this.props.onSendData({ type: 'image', file: this.state.image })
 
         console.log('this.state.image', this.state.image)
-      }
+      } 
     })
     // console.log(this.uploadFile(file))
     // console.log('state file: ', this.state.file)
   }
   render() {
-    // let showImage
-    // if (this.state.image.length) {
-    //   showImage = (
-    //     <div style={{ maxWidth: '200px', maxHeight: '200px' }}>
-    //       <img src={this.state.image} style={{ maxWidth: '100%', maxHeight: '100%' }} />
-    //     </div>
-    //   )
-    // } else {
-    //   showImage = <div></div>
-    // }
+    let showImage
+    if (this.state.image.length) {
+      showImage = (
+        <div style={{ maxWidth: '200px', maxHeight: '200px' }}>
+          <img src={this.state.image} style={{ maxWidth: '100%', maxHeight: '100%' }} />
+        </div>
+      )
+    } else {
+      showImage = <div></div>
+    }
+    console.log('asd', this.state.image)
     return (
       <div
         style={{

@@ -9,7 +9,10 @@ export default async (bp: typeof sdk) => {
    * Your API will be available at `http://localhost:3000/api/v1/bots/BOT_NAME/mod/custom-module-rijan`
    * Just replace BOT_NAME by your bot ID
    */
-  const router = bp.http.createRouterForBot('custom-module-rijan')
+  const router = bp.http.createRouterForBot('custom-module-rijan', {
+    checkAuthentication: false,
+    enableJsonBodyParser: true
+  })
 
   // Link to access this route: http://localhost:3000/api/v1/bots/BOT_NAME/mod/custom-module-rijan/my-first-route
   router.get('/my-first-route', async (req, res) => {
@@ -46,5 +49,4 @@ export default async (bp: typeof sdk) => {
       res.send({ message: 'Done Boiii', data: req.file?.filename })
     }
   })
-
 }
