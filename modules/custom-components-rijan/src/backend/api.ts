@@ -126,9 +126,9 @@ export default async (bp: typeof sdk) => {
       res.send({ message: req.body.fileValidationError })
       return
     }
+    const filePathApply = path.join(__dirname, '../../assets/apply.json')
+    // Data to append
     try {
-      const filePathApply = path.join(__dirname, '../../assets/apply.json')
-      // Data to append
       const newData = {
         name: req.body.name,
         email: req.body.email,

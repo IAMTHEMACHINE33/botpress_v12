@@ -42,6 +42,7 @@ class Service {
 
     const handoff = await this.repository.createHandoff(botId, dest).then(handoff => {
       this.state.cacheHandoff(botId, handoff.userThreadId, handoff)
+      // console.log('botId, handoff.userThreadId, handoff: ', botId, handoff.userThreadId, handoff);
       return handoff
     })
 

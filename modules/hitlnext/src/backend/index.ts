@@ -13,6 +13,8 @@ import migrate from './migrate'
 import Repository from './repository'
 import upsertAgentRoles from './workspace'
 
+// import Database from "../../../analytics/src/backend/db"
+
 export interface StateType {
   cacheHandoff?: Function
   expireHandoff?: Function
@@ -21,16 +23,19 @@ export interface StateType {
 
 const state: StateType = { timeouts: {} }
 let repository: Repository
+// let db: Database
 
 const onServerStarted = async (bp: typeof sdk) => {
   await migrate(bp)
   await registerMiddleware(bp, state)
+  // db = new Database(bp)
 }
 
 const onServerReady = async (bp: typeof sdk) => {
   await upsertAgentRoles(bp)
   repository = new Repository(bp, state.timeouts)
   await api(bp, state, repository)
+  // await api(bp, state, repository, db)
 }
 
 const onModuleUnmount = async (bp: typeof sdk) => {

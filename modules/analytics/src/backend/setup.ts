@@ -19,6 +19,7 @@ export default async (bp: typeof sdk, db: Database, interactionsToTrack: string[
   })
 
   process.BOTPRESS_EVENTS.on('bp_core_enter_flow', ({ channel, botId, flowName }) => {
+    // console.log('flowName: ', flowName);
     db.incrementMetric(botId, channel, 'enter_flow_count', removeExt(flowName))
   })
 

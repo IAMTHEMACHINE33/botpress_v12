@@ -24,7 +24,10 @@ const Metric = <const>[
   'feedback_positive_qna',
   'feedback_negative_qna',
   'feedback_positive_workflow',
-  'feedback_negative_workflow'
+  'feedback_negative_workflow',
+
+  'hitl_assigned',
+  "hitl_resolved"
 ]
 export type MetricTypes = typeof Metric[number]
 
@@ -77,6 +80,9 @@ export default class Database {
 
   incrementMetric(botId: string, channel: string, metric: MetricTypes, subMetric?: string) {
     const key = this.getCacheKey(botId, channel, metric, subMetric)
+    console.log('botId, channel, metric, subMetric: ', botId, channel, metric, subMetric)
+    console.log('key2: ', key)
+
     this.cache_entries[key] = (this.cache_entries[key] || 0) + 1
   }
 
@@ -91,6 +97,8 @@ export default class Database {
       // we batch maximum 1000 rows in the same query
       const original = this.cache_entries
       const keys = take(Object.keys(this.cache_entries), 1000)
+      console.log('keys: ', keys);
+
       if (!keys.length) {
         return
       }
@@ -101,6 +109,8 @@ export default class Database {
         .map(key => {
           const [date, botId, channel, metric, subMetric] = key.split('|')
           const value = original[key]
+          console.log('value: ', value);
+          
           return this.knex
             .raw('(:date:, :botId, :channel, :metric, :subMetric, :value)', {
               date: this.knex.raw(`date('${date}')`),

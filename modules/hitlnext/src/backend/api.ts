@@ -38,7 +38,9 @@ export default async (bp: typeof sdk, state: StateType, repository: Repository) 
   // Enforces for an agent to be 'online' before executing an action
   const agentOnlineMiddleware = async (req: HITLBPRequest, res: Response, next) => {
     const { email, strategy } = req.tokenUser!
+    console.log('email, strategy', email, strategy)
     const agentId = makeAgentId(strategy, email)
+    console.log('agenId', agentId)
     const online = await repository.getAgentOnline(req.params.botId, agentId)
 
     try {
@@ -111,6 +113,7 @@ export default async (bp: typeof sdk, state: StateType, repository: Repository) 
     errorMiddleware(async (req: RequestWithUser, res: Response) => {
       const agents = await repository.listAgents(req.workspace).then(agents => {
         return Promise.map(agents, async agent => {
+          console.log('agent', agent)
           return {
             ...agent,
             online: await repository.getAgentOnline(req.params.botId, agent.agentId)
@@ -127,7 +130,7 @@ export default async (bp: typeof sdk, state: StateType, repository: Repository) 
     errorMiddleware(async (req: RequestWithUser, res: Response) => {
       const { email, strategy } = req.tokenUser!
       const agentId = makeAgentId(strategy, email)
-
+      console.log('online', agentId)
       const { online } = req.body
 
       if (online) {
@@ -156,6 +159,8 @@ export default async (bp: typeof sdk, state: StateType, repository: Repository) 
         req.params.botId,
         _.pick<CollectionConditions>(req.query, ['limit', 'column', 'desc'])
       )
+      )
+      )
       res.send(handoffs)
     })
   )
@@ -169,7 +174,7 @@ export default async (bp: typeof sdk, state: StateType, repository: Repository) 
       }
 
       Joi.attempt(payload, CreateHandoffSchema)
-
+      // console.log('handoffs', payload.userId)
       // Prevent creating a new handoff if one for the same conversation is currently active
       const existing = await repository.existingActiveHandoff(
         req.params.botId,
@@ -220,12 +225,12 @@ export default async (bp: typeof sdk, state: StateType, repository: Repository) 
 
       const agentId = makeAgentId(strategy, email)
       const agent = await repository.getCurrentAgent(req as BPRequest, req.params.botId, agentId)
-
+      // console.log('assign agent', agent)
       let handoff = await repository.findHandoff(req.params.botId, req.params.id)
 
       const userId = await repository.mapVisitor(botId, agentId)
       const conversation = await bp.messaging.forBot(botId).createConversation(userId)
-
+      // console.log('assign', handoff)
       const agentThreadId = conversation.id
       const payload: Pick<IHandoff, 'agentId' | 'agentThreadId' | 'assignedAt' | 'status'> = {
         agentId,
@@ -284,6 +289,30 @@ export default async (bp: typeof sdk, state: StateType, repository: Repository) 
         await Bluebird.delay(5)
       })
 
+      // Adds "hitl_assigned" As "metric" And AgentId As "subMetric"
+      const values = {
+        date: '2023-08-21',
+        botId,
+        channel: 'web',
+        metric: 'hitl_assigned',
+        subMetric: agentId
+      }
+      const lastData = await bp
+        .database('bot_analytics')
+        .select('*')
+        .where(values)
+        .then(data => data)
+
+      if (lastData.length > 0) {
+        await bp
+          .database('bot_analytics')
+          .update({ ...values, value: lastData[0].value + 1 })
+          .where(values)
+      } else {
+        await bp.database('bot_analytics').insert({ ...values, value: 1 })
+      }
+      // console.log('lastData: ', lastData)
+
       await bp.events.sendEvent(
         bp.IO.Event({
           ...baseEvent,
@@ -314,12 +343,13 @@ export default async (bp: typeof sdk, state: StateType, repository: Repository) 
     agentOnlineMiddleware,
     errorMiddleware(async (req: HITLBPRequest, res: Response) => {
       const handoff = await repository.findHandoff(req.params.botId, req.params.id)
-
+      const { botId, agentId} = handoff;
+      // console.log(' botId, agentId: ',  botId, agentId);
       const payload: Pick<IHandoff, 'status' | 'resolvedAt'> = {
         status: 'resolved',
         resolvedAt: new Date()
       }
-
+      // console.log('resolve', handoff)
       Joi.attempt(payload, ResolveHandoffSchema)
 
       try {
@@ -327,7 +357,30 @@ export default async (bp: typeof sdk, state: StateType, repository: Repository) 
       } catch (e) {
         throw new UnprocessableEntityError(formatValidationError(e))
       }
+      // Adds "hitl_assigned" As "metric" And AgentId As "subMetric"
+      const values = {
+        date: "2023-08-22",
+        botId,
+        channel: 'web',
+        metric: 'hitl_resolved',
+        subMetric: agentId
+      }
+      // console.log('values: ', values);
+      
+      const lastData = await bp
+        .database('bot_analytics')
+        .select('*')
+        .where(values)
 
+      if (lastData.length > 0) {
+        await bp
+          .database('bot_analytics')
+          .update({ ...values, value: lastData[0].value + 1 })
+          .where(values)
+      } else {
+        await bp.database('bot_analytics').insert({ ...values, value: 1 })
+      }
+      // console.log('lastData: ', lastData)
       const updated = await service.resolveHandoff(handoff, req.params.botId, payload)
       req.agentId && (await extendAgentSession(repository, realtime, req.params.botId, req.agentId))
 

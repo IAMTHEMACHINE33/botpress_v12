@@ -1,23 +1,6 @@
 import multer from 'multer'
 import path from 'path'
-import _ from 'lodash'
-
-// const fileUpload = (req, res, next, config) => {
-//   const diskStorage = multer.diskStorage({
-//     destination: config.fileLocation,
-//     // @ts-ignore typing indicates that limits isn't supported
-//     limits: {
-//       files: 1,
-//       fileSize: 5242880 // 5MB
-//     },
-//     filename(req, file, cb) {
-//       const userId = _.get(req, 'params.userId') || 'anonymous'
-//       const ext = path.extname(file.originalname)
-
-//       cb(undefined, `${userId}_${new Date().getTime()}${ext}`)
-//     }
-//   })
-// }
+// import _ from 'lodash'
 
 const storage = botpressConfig =>
   multer.diskStorage({

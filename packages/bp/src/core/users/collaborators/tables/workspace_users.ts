@@ -7,6 +7,7 @@ export class WorkspaceUsersTable extends Table {
     let created = false
     await this.knex.createTableIfNotExists(this.name, table => {
       table.string('email')
+      table.string('fullname')
       table.string('strategy')
       table.string('workspace')
       table.string('role')

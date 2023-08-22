@@ -1489,6 +1489,7 @@ declare module 'botpress/sdk' {
   }
   export interface WorkspaceUser {
     email: string
+    fullname: string
     strategy: string
     role: string
     workspace: string
